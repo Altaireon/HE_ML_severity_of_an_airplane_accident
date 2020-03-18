@@ -1,0 +1,85 @@
+{
+ "seed":19,
+ "pd":{
+         "max_rows": 100,
+         "precision": 3
+       },
+  "lgb_params":{},
+  "id_columns":[["Accident_ID"]],
+  "neglect_encoding":[null],
+  "date_columns":[null],
+  "ohe_cat_cols":[null],
+  "ohe_cat_cols_params": {
+                            "drop":false
+                          },
+  "le_cat_cols": [["Accident_Type_Code","Violations","Severity"]],
+  "le_cat_cols_params": {
+                        "drop":false,
+                        "replace":true
+                      },
+  "standardize_cols": [null],
+  "standardize_cols_params": {
+                      "params":{
+                                "with_mean":true,
+                                "with_std":true
+                              },
+                      "replace":true,
+                      "drop": false
+                      },
+  "quantile_transform_cols": [["Adverse_Weather_Metric","Max_Elevation","Turbulence_In_gforces","Cabin_Temperature","Safety_Score","total","total2","total3","Control_Metric"]],
+  "quantile_transform_cols_params": {
+                      "params":{
+                                "random_state": 42
+                               },
+                      "replace":true,
+                      "drop": false
+                      },
+  "date_columns": [null],
+  "log_features": [["Max_Elevation","Adverse_Weather_Metric","Turbulence_In_gforces"]],
+  "pow_features": [null],
+  "mul_features": [
+                    {"Adverse_Weather_Metric":10000,"Turbulence_In_gforces":100}
+                  ],
+  "add_features": [
+                    null
+                  ],
+  "sub_features": [
+                    {"Adverse_Weather_Metric":["min",0]}
+                  ],
+  "div_features": [
+                    {"Adverse_Weather_Metric":["max",0]}
+                  ],
+  "exp_features": [null],
+  "frequency_encoding": {
+                         "columns": [["Accident_Type_Code"]],
+                         "period_columns": [null],
+                         "self_encoding": [false],
+                         "with_proportions": [true],
+                         "only_proportions": [false]
+                        },
+  "agg": {
+          "main_columns": [["Turbulence_In_gforces", "Cabin_Temperature","Max_Elevation"]],
+          "uids": [["Violations","Accident_Type_Code"]],
+          "aggregations": [["mean","std","max","min"]],
+          "normalize": [false]
+         },
+  "target": "Severity",
+  "fill_na": {
+               "is_true": [true],
+               "with": [10]
+              },
+  "thresholds": {
+                 "ohe": [null],
+                 "le": [null],
+                  "sc": [null],
+                 "qt": [null],
+                  "feature_importance":100,
+                 "zscore":3,
+                 "corr_target": [0.01],
+                 "corr_columns": [0.01]
+                },
+  "folds": 3,
+  "validation_split": 0.1,
+  "to_drop": [["Severity", "Accident_ID","Violations_Turbulence_In_gforces_std","Violations_Turbulence_In_gforces_max","Violations_Turbulence_In_gforces_min","Accident_Type_Code_Turbulence_In_gforces_min","Violations_Cabin_Temperature_max","Accident_Type_Code_Cabin_Temperature_max","Violations_Max_Elevation_std","Accident_Type_Code_Max_Elevation_min","Accident_Type_Code_Turbulence_In_gforces_max"]],
+  "num_class":4
+}
